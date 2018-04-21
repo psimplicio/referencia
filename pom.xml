@@ -69,7 +69,7 @@
 			<artifactId>spring-beans</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		
+
 		<!-- DEPENDÊNCIAS MYSQL -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -101,6 +101,19 @@
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>javax.servlet.jsp-api</artifactId>
 			<version>2.3.1</version>
+		</dependency>
+
+		<!-- DEPENDÊNCIAS JQUERY -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+			<version>3.1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>jquery-ui</artifactId>
+			<version>1.12.1</version>
 		</dependency>
 	</dependencies>
 </project>

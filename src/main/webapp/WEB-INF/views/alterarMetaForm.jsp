@@ -11,7 +11,7 @@
 
 	<form action="alterarMeta" method="post">
 	
-		<input type="hidden" name="id" />
+		<input type="hidden" name="id" value="${meta.id}" />
 		Meta : <input type="text" name="meta" value="${meta.meta}" /> <br>
 		Autor : <input type="text" name="autorMeta" value="${meta.autorMeta}" /> <br>
 		Data Inicio : <input type="text" name="dataInicio" value='<fmt:formatDate value="${meta.dataInicio.time}" pattern="dd/MM/yyyy"/>' /> <br>

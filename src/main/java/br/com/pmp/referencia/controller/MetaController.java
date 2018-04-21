@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.pmp.referencia.dao.JdbcMetaDao;
@@ -63,7 +64,7 @@ public class MetaController {
 	}
 	
 	@RequestMapping("alterarMetaForm")
-	public ModelAndView alterarMetaForm(Long id) {
+	public ModelAndView alterarMetaForm(@RequestParam("id") Long id) {
 		
 		ModelAndView mav = new ModelAndView("alterarMetaForm");
 		mav.addObject("meta", dao.buscarPorid(id));
@@ -73,10 +74,41 @@ public class MetaController {
 	}
 	
 	@RequestMapping("removerMeta")
-	public ModelAndView removerMeta(Long id) {
+	public ModelAndView removerMeta(@RequestParam("id") Long id) {
 		
 		dao.remover(id);
 		ModelAndView mav = new ModelAndView("redirect:listarMetas");
+		
+		return mav;
+		
+	}
+	
+	@RequestMapping("alterarMeta")
+	public ModelAndView alterarMeta(Meta meta) {
+		
+		dao.alterar(meta);
+		ModelAndView mav = new ModelAndView("redirect:listarMetas");
+		
+		return mav;	
+	}
+	
+	@RequestMapping("finalizarAgora")
+	public ModelAndView finalizarAgora(@RequestParam("id") Long id) {
+		
+		dao.finalizar(id);
+		ModelAndView mav = new ModelAndView("metaFinalizada");
+		mav.addObject("meta", dao.buscarPorid(id));
+		
+		return mav;
+		
+	}
+	
+	@RequestMapping("iniciarAgora")
+	public ModelAndView iniciarAgora(@RequestParam("id") Long id) {
+		
+		dao.iniciar(id);
+		ModelAndView mav = new ModelAndView("metaIniciada");
+		mav.addObject("meta", dao.buscarPorid(id));
 		
 		return mav;
 		

@@ -7,14 +7,42 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Listar Metas</title>
+<link href="${pageContext.request.contextPath}/webjars/jquery-ui/1.12.1/themes/base/jquery-ui.min.css" rel="stylesheet">
+<script src="${pageContext.request.contextPath}/webjars/jquery/3.1.1/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/webjars/jquery-ui/1.12.1/jquery-ui.min.js"></script>
+
 </head>
 <body>
+
+	<script>
+		
+		function finalizarMeta(id){
+			
+			$.post("finalizarAgora", {"id" : id}, function(resposta){
+				
+				$("#meta_" + id).html(resposta);
+				
+			});
+		}
+		
+		function iniciarMeta(id){
+			
+			$.post("iniciarAgora", {"id" : id}, function(resposta){
+				
+				$("#meta_" + id).html(resposta);
+				
+			})
+			
+		}
+	
+	</script>
 
 	<a href="voltarMenu">Voltar</a>
 	
 	<table>
 		<tr>
 			<th>Meta</th>
+			<th>Autor</th>
 			<th>Status</th>
 			<th>Data Inicio</th>
 			<th>Data Fim</th>
@@ -23,18 +51,22 @@
 		</tr>
 		<c:forEach items="${metas}" var="meta">
 
-			<tr>
+			<tr id="meta_${meta.id}">
 			
 				<td>${meta.meta}</td>  
+				<td>${meta.autorMeta}</td>
 				<c:if test="${empty meta.dataInicio}">
-					<td><a href="iniciarMeta">Iniciar</a></td>	
+					<td><a href="#" onclick="iniciarMeta(${meta.id})">Iniciar</a></td>	
 				</c:if>
 				<c:if test="${not empty meta.dataInicio && meta.finalizado eq false}">
-					<td><a href="finalizarMeta">Finalizar</a></td>
+					<td><a href="#" onclick="finalizarMeta(${meta.id})">Finalizar</a></td>
+				</c:if>
+				<c:if test="${meta.finalizado eq true}">
+					<td><b>Finalizado</b></td>
 				</c:if>
 				
 				<td><fmt:formatDate value="${meta.dataInicio.time}" pattern="dd/MM/yyyy"/> </td>
-				<td>${meta.dataFim}</td>
+				<td><fmt:formatDate value="${meta.dataFim.time}" pattern="dd/MM/yyyy"/></td>
 				<td><a href="alterarMetaForm?id=${meta.id}">Alterar</a>
 				<td><a href="removerMeta?id=${meta.id}">Remover</a>
 				

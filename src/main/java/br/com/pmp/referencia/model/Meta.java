@@ -2,12 +2,16 @@ package br.com.pmp.referencia.model;
 
 import java.util.Calendar;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Meta {
 	
 	private Long id;
 	private String meta;
 	private String autorMeta;
+	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Calendar dataInicio;
+	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Calendar dataFim;
 	private boolean finalizado;
 	

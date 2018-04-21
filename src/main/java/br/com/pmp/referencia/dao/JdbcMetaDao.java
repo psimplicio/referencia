@@ -84,6 +84,30 @@ public class JdbcMetaDao {
 		}
 	}
 	
+	public void alterar(Meta meta) {
+		
+		String sql = "update metas set meta = ?, autorMeta = ?, dataInicio = ?, dataFim = ?, finalizado = ? where id = ?";
+		PreparedStatement stmt;
+		
+		try {
+			
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, meta.getMeta());
+			stmt.setString(2, meta.getAutorMeta());
+			stmt.setDate(3, meta.getDataInicio() != null ? new Date(meta.getDataInicio().getTimeInMillis()) : null);
+			stmt.setDate(4, meta.getDataFim() != null ? new Date(meta.getDataFim().getTimeInMillis()) : null);
+			stmt.setBoolean(5, meta.isFinalizado());
+			stmt.setLong(6, meta.getId());
+			
+			stmt.execute();
+			
+		} catch (SQLException e) {
+			
+			throw new RuntimeException(e);
+		}
+		
+	}
+	
 	public void remover(Long id) {
 		
 		String sql = "delete from metas where id = ?";
@@ -130,6 +154,49 @@ public class JdbcMetaDao {
 			throw new RuntimeException(e);
 		}
 		
+	}
+	
+	public void finalizar(Long id) {
+		
+		String sql = "update metas set dataFim = ?, finalizado = ? where id = ?";
+		PreparedStatement stmt;
+		
+		try {
+			
+			stmt = conn.prepareStatement(sql);
+			stmt.setDate(1, new Date(Calendar.getInstance().getTimeInMillis()));
+			stmt.setBoolean(2, true);
+			stmt.setLong(3, id);
+			
+			stmt.execute();
+			stmt.close();
+			
+		} catch (SQLException e) {
+			
+			throw new RuntimeException(e);
+		}
+		
+	}
+	
+	public void iniciar(Long id) {
+		
+		String sql = "update metas set dataInicio = ? where id = ?";
+		PreparedStatement stmt;
+		
+		try {
+			
+			stmt = conn.prepareStatement(sql);
+			stmt.setDate(1, new Date(Calendar.getInstance().getTimeInMillis()));
+			stmt.setLong(2, id);
+			stmt.execute();
+			
+			stmt.close();
+			
+		} catch (SQLException e) {
+			
+			throw new RuntimeException(e);
+			
+		}
 	}
 	
 	public Meta popularMeta(ResultSet rs) {
