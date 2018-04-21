@@ -4,11 +4,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Menu</title>
 </head>
 <body>
+	
+	<a href="efetuarLogout">Sair</a>
 
-oi
+	<ul>
+		<li><a href="inserirMetaForm">Criar meta</a></li>
+		<li><a href="listarMetas">Listar metas</a></li>
+	</ul>
 
 </body>
 </html>
