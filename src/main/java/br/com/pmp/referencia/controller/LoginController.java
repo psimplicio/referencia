@@ -22,7 +22,6 @@ public class LoginController {
 		
 	}
 	
-	
 	@GetMapping("/")
 	public String login() {
 		
