@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import br.com.pmp.referencia.dao.JdbcMetaDao;
 import br.com.pmp.referencia.model.Meta;
@@ -23,25 +24,61 @@ public class MetaController {
 	}
 	
 	@RequestMapping("voltarMenu")
-	public String voltarMenu() {
+	public ModelAndView voltarMenu() {
 		
-		return "/menu";
+		ModelAndView modelAndView = new ModelAndView("menu");
+		
+		return modelAndView;
 	}
 	
 	@RequestMapping("inserirMetaForm")
-	public String inserirMetaForm() {
+	public ModelAndView inserirMetaForm() {
 		
-		return "/inserirMetaForm";
+		ModelAndView modelAndView = new ModelAndView("inserirMetaForm");
+		
+		return modelAndView;
+		
 	}
 	
 	@RequestMapping("inserirMeta")
-	public String inserirMeta(Meta meta, HttpSession session) {
+	public ModelAndView inserirMeta(Meta meta, HttpSession session) {
 		
 		Usuario usuario = (Usuario)session.getAttribute("usuarioLogado");
 		meta.setAutorMeta(usuario.getLogin());
 		dao.inserir(meta);
+		ModelAndView modelAndView = new ModelAndView("redirect:inserirMetaForm");
 		
-		return "redirect:inserirMetaForm";
+		return modelAndView;
+		
+	}
+	
+	@RequestMapping("listarMetas")
+	public ModelAndView listarMetasForm() {
+		
+		ModelAndView modelAndView = new ModelAndView("listarMetasForm");
+		modelAndView.addObject("metas", dao.listar());
+		
+		return modelAndView;
+		
+	}
+	
+	@RequestMapping("alterarMetaForm")
+	public ModelAndView alterarMetaForm(Long id) {
+		
+		ModelAndView mav = new ModelAndView("alterarMetaForm");
+		mav.addObject("meta", dao.buscarPorid(id));
+		
+		return mav;
+		
+	}
+	
+	@RequestMapping("removerMeta")
+	public ModelAndView removerMeta(Long id) {
+		
+		dao.remover(id);
+		ModelAndView mav = new ModelAndView("redirect:listarMetas");
+		
+		return mav;
 		
 	}
 

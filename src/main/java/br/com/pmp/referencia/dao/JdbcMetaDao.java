@@ -17,13 +17,13 @@ import br.com.pmp.referencia.model.Meta;
 @Repository
 public class JdbcMetaDao {
 	
-	private Connection dao;
+	private Connection conn;
 	
 	public JdbcMetaDao(BasicDataSource dataSource) {
 		
 		try {
 			
-			this.dao = dataSource.getConnection();
+			this.conn = dataSource.getConnection();
 			
 		} catch (SQLException e) {
 			
@@ -40,7 +40,7 @@ public class JdbcMetaDao {
 		
 		try {
 			
-			stmt = dao.prepareStatement(sql);
+			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, meta.getMeta());
 			stmt.setString(2, meta.getAutorMeta());
 			
@@ -62,7 +62,7 @@ public class JdbcMetaDao {
 		
 		try {
 			
-			stmt = dao.prepareStatement(sql);
+			stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			
 			while(rs.next()) {
@@ -82,6 +82,54 @@ public class JdbcMetaDao {
 			throw new RuntimeException(e);
 			
 		}
+	}
+	
+	public void remover(Long id) {
+		
+		String sql = "delete from metas where id = ?";
+		PreparedStatement stmt;
+		
+		try {
+			
+			stmt = conn.prepareStatement(sql);
+			stmt.setLong(1, id);
+			stmt.execute();
+			
+			stmt.close();
+			
+		} catch (SQLException e) {
+			
+			throw new RuntimeException(e);
+			
+		}
+		
+	}
+	
+	public Meta buscarPorid(Long id) {
+		
+		String sql = "select * from metas where id = ?";
+		PreparedStatement stmt;
+		
+		try {
+			
+			stmt = conn.prepareStatement(sql);
+			stmt.setLong(1, id);
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				return popularMeta(rs);
+				
+			}
+			
+			return null;
+			
+		} catch (SQLException e) {
+			
+			throw new RuntimeException(e);
+		}
+		
 	}
 	
 	public Meta popularMeta(ResultSet rs) {
