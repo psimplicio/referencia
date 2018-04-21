@@ -22,6 +22,12 @@ public class MetaController {
 		
 	}
 	
+	@RequestMapping("voltarMenu")
+	public String voltarMenu() {
+		
+		return "/menu";
+	}
+	
 	@RequestMapping("inserirMetaForm")
 	public String inserirMetaForm() {
 		
