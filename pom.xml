@@ -103,6 +103,13 @@
 			<version>2.3.1</version>
 		</dependency>
 
+		<!-- DEPENDÊNCIAS BEAN VALIDATOR -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.0.9.Final</version>
+		</dependency>
+
 		<!-- DEPENDÊNCIAS JQUERY -->
 		<dependency>
 			<groupId>org.webjars</groupId>

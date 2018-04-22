@@ -1,9 +1,11 @@
 package br.com.pmp.referencia.controller;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -42,7 +44,13 @@ public class MetaController {
 	}
 	
 	@RequestMapping("inserirMeta")
-	public ModelAndView inserirMeta(Meta meta, HttpSession session) {
+	public ModelAndView inserirMeta(@Valid Meta meta, BindingResult result, HttpSession session) {
+		
+		if(result.hasFieldErrors("meta")) {
+			ModelAndView mav = new ModelAndView("inserirMetaForm");
+			return mav;
+			
+		}
 		
 		Usuario usuario = (Usuario)session.getAttribute("usuarioLogado");
 		meta.setAutorMeta(usuario.getLogin());
