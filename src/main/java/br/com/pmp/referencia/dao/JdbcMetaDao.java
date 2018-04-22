@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import br.com.pmp.referencia.model.Meta;
 
 @Repository
-public class JdbcMetaDao {
+public class JdbcMetaDao implements MetaDao{
 	
 	private Connection conn;
 	

@@ -9,7 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Meta {
 	
 	private Long id;
-	@Size(min=5, message= "{tamanho.pequeno.meta}")
+	@Size(min=5, message="{tamanho.pequeno.meta}")
 	private String meta;
 	private String autorMeta;
 	@DateTimeFormat(pattern="dd/MM/yyyy")

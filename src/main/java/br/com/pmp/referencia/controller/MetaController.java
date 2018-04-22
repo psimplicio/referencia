@@ -4,27 +4,32 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.com.pmp.referencia.dao.JdbcMetaDao;
+import br.com.pmp.referencia.dao.MetaDao;
 import br.com.pmp.referencia.model.Meta;
 import br.com.pmp.referencia.model.Usuario;
 
+@Transactional
 @Controller
 public class MetaController {
 	
-	private JdbcMetaDao dao;
-	
 	@Autowired
-	public MetaController(JdbcMetaDao dao) {
+	@Qualifier("jdbcMetaDao")
+	private MetaDao dao;
+	
+	
+	//public MetaController(JdbcMetaDao dao) {
 		
-		this.dao = dao;
+	//	this.dao = dao;
 		
-	}
+	//}
 	
 	@RequestMapping("voltarMenu")
 	public ModelAndView voltarMenu() {

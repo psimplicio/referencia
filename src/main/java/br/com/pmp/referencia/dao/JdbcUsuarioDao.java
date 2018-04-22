@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import br.com.pmp.referencia.model.Usuario;
 
 @Repository
-public class JdbcUsuarioDao {
+public class JdbcUsuarioDao implements UsuarioDao{
 	
 	private Connection connetion;
 	

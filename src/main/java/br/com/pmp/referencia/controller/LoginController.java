@@ -3,24 +3,30 @@ package br.com.pmp.referencia.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.com.pmp.referencia.dao.JdbcUsuarioDao;
+import br.com.pmp.referencia.dao.UsuarioDao;
 import br.com.pmp.referencia.model.Usuario;
 
+@Transactional
 @Controller
 public class LoginController {
 	
-	private JdbcUsuarioDao dao;
-	
+	//private JdbcUsuarioDao dao;
 	@Autowired
-	public LoginController(JdbcUsuarioDao dao) {
+	@Qualifier("jpaUsuarioDao")
+	private UsuarioDao dao;
+	
+	
+	//public LoginController(JdbcUsuarioDao dao) {
 		
-		this.dao = dao;
+	//	this.dao = dao;
 		
-	}
+	//}
 	
 	@GetMapping("/")
 	public String login() {
