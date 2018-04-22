@@ -2,18 +2,28 @@ package br.com.pmp.referencia.model;
 
 import java.util.Calendar;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+@Entity(name="metas")
 public class Meta {
 	
+	@Id
+	@GeneratedValue
 	private Long id;
 	@Size(min=5, message="{tamanho.pequeno.meta}")
 	private String meta;
 	private String autorMeta;
+	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Calendar dataInicio;
+	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Calendar dataFim;
 	private boolean finalizado;

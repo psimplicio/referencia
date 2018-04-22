@@ -21,7 +21,7 @@ import br.com.pmp.referencia.model.Usuario;
 public class MetaController {
 	
 	@Autowired
-	@Qualifier("jdbcMetaDao")
+	@Qualifier("jpaMetaDao")
 	private MetaDao dao;
 	
 	
